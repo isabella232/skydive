@@ -1767,9 +1767,10 @@
 			"revisionTime": "2018-06-06T16:35:43Z"
 		},
 		{
-			"checksumSHA1": "QCOSMCP+znzImWyoYv+LK8VqAT8=",
+			"checksumSHA1": "ZrwN00WYDoPA5yMvMOWkZIcuxXE=",
+			"origin": "github.com/safchain/easyjson/gen",
 			"path": "github.com/mailru/easyjson/gen",
-			"revision": "3fdea8d05856a0c8df22ed4bc71b3219245e4485",
+			"revision": "d32b6194ad1f264fa5b330526852d927926ea71c",
 			"revisionTime": "2018-06-06T16:35:43Z"
 		},
 		{
