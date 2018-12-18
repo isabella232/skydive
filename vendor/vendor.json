@@ -3,6 +3,48 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "La4K82Zzpp5fDwr2uaxeR9E+FoI=",
+			"path": "git.fd.io/govpp.git",
+			"revision": "5f1917fd11e8562ef4094b7ce3a89af66ace5792",
+			"revisionTime": "2018-12-13T12:03:49Z"
+		},
+		{
+			"checksumSHA1": "Mdwnnas0/iWaJB9Nnt431mdhtqE=",
+			"path": "git.fd.io/govpp.git/adapter",
+			"revision": "5f1917fd11e8562ef4094b7ce3a89af66ace5792",
+			"revisionTime": "2018-12-13T12:03:49Z"
+		},
+		{
+			"checksumSHA1": "Tg3uL/d82jzlcgYgAS6x/jfTtXA=",
+			"path": "git.fd.io/govpp.git/adapter/vppapiclient",
+			"revision": "5f1917fd11e8562ef4094b7ce3a89af66ace5792",
+			"revisionTime": "2018-12-13T12:03:49Z"
+		},
+		{
+			"checksumSHA1": "xOv5nUyKl6k5UtnuHXzclRL2Ft0=",
+			"path": "git.fd.io/govpp.git/api",
+			"revision": "5f1917fd11e8562ef4094b7ce3a89af66ace5792",
+			"revisionTime": "2018-12-13T12:03:49Z"
+		},
+		{
+			"checksumSHA1": "acVIG72zY8zZO7NJk4hkb5xb2Pg=",
+			"path": "git.fd.io/govpp.git/cmd/binapi-generator",
+			"revision": "5f1917fd11e8562ef4094b7ce3a89af66ace5792",
+			"revisionTime": "2018-12-13T12:03:49Z"
+		},
+		{
+			"checksumSHA1": "+ddD9b0cOZfcbA7EkSxDRcrv9Nc=",
+			"path": "git.fd.io/govpp.git/codec",
+			"revision": "5f1917fd11e8562ef4094b7ce3a89af66ace5792",
+			"revisionTime": "2018-12-13T12:03:49Z"
+		},
+		{
+			"checksumSHA1": "WVXlXfatukFeSsvl0LvzODuXTPQ=",
+			"path": "git.fd.io/govpp.git/core",
+			"revision": "5f1917fd11e8562ef4094b7ce3a89af66ace5792",
+			"revisionTime": "2018-12-13T12:03:49Z"
+		},
+		{
 			"checksumSHA1": "VyTWDfmf9jOJWlwjNJ91LMHl71Y=",
 			"path": "github.com/GehirnInc/crypt",
 			"revision": "5a3fafaa7c86150c096504f50630ca6ac8cff681",
@@ -264,6 +306,12 @@
 			"path": "github.com/aws/aws-sdk-go/service/sts",
 			"revision": "803c35f732cb53e133b968e27fb7fbd337524a22",
 			"revisionTime": "2018-10-24T19:23:52Z"
+		},
+		{
+			"checksumSHA1": "716UDJWUBriyNbRbjE6UFtq0rb4=",
+			"path": "github.com/bennyscetbun/jsongo",
+			"revision": "88b16279eead33f9fb0749ee13858472cf01b25c",
+			"revisionTime": "2018-10-11T16:05:14Z"
 		},
 		{
 			"checksumSHA1": "4QnLdmB1kG3N+KlDd1N+G9TWAGQ=",
@@ -1814,6 +1862,12 @@
 			"revisionTime": "2018-10-05T09:27:46Z"
 		},
 		{
+			"checksumSHA1": "D5EG5yMsbtHqKbzBVbxFMKEMDNY=",
+			"path": "github.com/lunixbochs/struc",
+			"revision": "02e4c2afbb2ac4bae6876f52c8273fc4cf5a4b0a",
+			"revisionTime": "2018-04-08T20:38:00Z"
+		},
+		{
 			"checksumSHA1": "E6lbuGqlBGB0dnklAzqfNZ8wd6s=",
 			"path": "github.com/lxc/lxd/client",
 			"revision": "9907f3a64b6b8ec9144e8be02d633b951439c0f6",
@@ -2300,10 +2354,10 @@
 			"revisionTime": "2016-09-30T03:27:40Z"
 		},
 		{
-			"checksumSHA1": "//pb4co1t6JuiPSorAZiLrDh+00=",
+			"checksumSHA1": "Rq+zqkFV0wJgi0MARcgx0QT+9lE=",
 			"path": "github.com/sirupsen/logrus",
-			"revision": "29d7eb25e8ffa54207ff5a9a5c3d63e95be2cc39",
-			"revisionTime": "2018-11-22T06:14:47Z"
+			"revision": "2067ea4241cec716fbd0ac90f42f339f963bff92",
+			"revisionTime": "2018-12-15T15:21:19Z"
 		},
 		{
 			"checksumSHA1": "2GMUQoP70/aoHkEYR9gHtUd/HAE=",

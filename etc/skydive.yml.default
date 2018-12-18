@@ -202,6 +202,7 @@ agent:
       # - lxd
       # - lldp
       # - runc
+      # - vpp
 
     netlink:
       # delay in seconds between two metric updates
@@ -234,6 +235,10 @@ agent:
       run_path:
         # - /var/run/runc
         # - /run/runc-ctrs
+
+    vpp:
+      # VPP API segment prefix connection, default : "" is equivalent to "/dev/shm"
+      # connect: ""
 
   capture:
     # Period in second to get capture stats from the probe. Note this

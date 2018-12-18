@@ -271,6 +271,23 @@
           test: scripts/ci/run-compile-tests.sh
 
 - job:
+    name: skydive-vpp-tests
+    defaults: skydive
+    triggers:
+      - skydive-pull-request:
+          name: vpp-tests
+          trigger-prefix: "(all )?"
+          only-trigger-phrase: true
+          cancel-builds-on-update: true
+    parameters:
+      - skydive-default-parameters
+      - skydive-labels:
+          slave-name: vpp
+    builders:
+      - skydive-test:
+          test: scripts/ci/run-vpp-tests.sh
+
+- job:
     name: skydive-k8s-tests
     defaults: skydive
     wrappers:

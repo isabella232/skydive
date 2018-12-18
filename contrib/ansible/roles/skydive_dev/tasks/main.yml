@@ -78,3 +78,5 @@
 - include: docker.yml
   tags:
     - vagrant
+
+- include: vpp.yml
