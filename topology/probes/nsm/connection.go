@@ -146,22 +146,18 @@ func (b *baseConnectionPair) GetNodes(g *graph.Graph) (*graph.Node, *graph.Node,
 
 	if srcInode == 0 || dstInode == 0 {
 		// remote connection: src or dst is not ready
-		return nil, nil, fmt.Errorf("connection is not ready")
+		return nil, nil, fmt.Errorf("source or destination inode is not set")
 	}
 
 	getNode := func(inode int64) *graph.Node {
 		filter := graph.NewElementFilter(filters.NewTermInt64Filter("Inode", inode))
 		node := g.LookupFirstNode(filter)
-		if node == nil {
-			logging.GetLogger().Errorf("NSM: no node with inode %v", inode)
-		}
 		return node
 	}
 	// Check that the nodes are in the graph
 	srcNode := getNode(srcInode)
 	if srcNode == nil {
 		return nil, nil, fmt.Errorf("node with inode %d does not exist", srcInode)
-
 	}
 	dstNode := getNode(dstInode)
 	if dstNode == nil {

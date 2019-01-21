@@ -227,15 +227,20 @@ func (p *Probe) onConnLocalRemote(t cc.CrossConnectEventType, conn *cc.CrossConn
 			c = new(remoteConnectionPair)
 			c.remote = conn.GetRemoteDestination()
 			p.connections = append(p.connections, c)
-		}
-		c.src = conn.GetLocalSource()
-		c.srcID = conn.GetId()
-		//TODO: we erase previous payload if exist
-		c.payload = conn.GetPayload()
-		p.g.Lock()
-		c.AddEdge(p.g)
-		p.g.Unlock()
+			c.src = conn.GetLocalSource()
+			c.srcID = conn.GetId()
+			//TODO: we erase previous payload if exist
+			c.payload = conn.GetPayload()
 
+		} else {
+			c.src = conn.GetLocalSource()
+			c.srcID = conn.GetId()
+			//TODO: we erase previous payload if exist
+			c.payload = conn.GetPayload()
+			p.g.Lock()
+			c.AddEdge(p.g)
+			p.g.Unlock()
+		}
 	} else {
 		if c == nil {
 			logging.GetLogger().Warning("NSM: received cross connect delete event for a connection that does not exist")
@@ -269,14 +274,20 @@ func (p *Probe) onConnRemoteLocal(t cc.CrossConnectEventType, conn *cc.CrossConn
 			c = new(remoteConnectionPair)
 			c.remote = conn.GetRemoteSource()
 			p.connections = append(p.connections, c)
+			c.dst = conn.GetLocalDestination()
+			c.dstID = conn.GetId()
+			//TODO: we erase previous payload if exist
+			c.payload = conn.GetPayload()
+
+		} else {
+			c.dst = conn.GetLocalDestination()
+			c.dstID = conn.GetId()
+			//TODO: we erase previous payload if exist
+			c.payload = conn.GetPayload()
+			p.g.Lock()
+			c.AddEdge(p.g)
+			p.g.Unlock()
 		}
-		c.dst = conn.GetLocalDestination()
-		c.dstID = conn.GetId()
-		//TODO: we erase previous payload if exist
-		c.payload = conn.GetPayload()
-		p.g.Lock()
-		c.AddEdge(p.g)
-		p.g.Unlock()
 	} else {
 		if c == nil {
 			logging.GetLogger().Warning("NSM: received cross connect delete event for a connection that does not exist")
@@ -303,16 +314,24 @@ func (p *Probe) onConnRemoteLocal(t cc.CrossConnectEventType, conn *cc.CrossConn
 // OnNodeAdded event
 // We assume skydive has locked the graph before calling this function
 func (p *Probe) OnNodeAdded(n *graph.Node) {
+	p.Lock()
+	defer p.Unlock()
 	if i, err := n.GetFieldInt64("Inode"); err == nil {
-		p.Lock()
-		defer p.Unlock()
 		// Find connections with matching inode
-		c := p.getConnectionWithInode(i)
-		if c == nil {
+		logging.GetLogger().Debugf("NSM: node added with inode: %v", i)
+		c, err := p.getConnectionWithInode(i)
+		if err != nil {
+			logging.GetLogger().Errorf("NSM: error retreiving connections with inodes : %v", err)
+			return
+		}
+		if len(c) == 0 {
+			logging.GetLogger().Debugf("NSM: no connection with inode %v", i)
 			return
 		}
 
-		c.AddEdge(p.g)
+		for i := range c {
+			c[i].AddEdge(p.g)
+		}
 	}
 }
 
@@ -326,23 +345,23 @@ func (p *Probe) OnNodeDeleted(n *graph.Node) {
 	// TODO: Consider removing the corresponding conniction from the connection list
 }
 
-func (p *Probe) getConnectionWithInode(inode int64) connection {
+func (p *Probe) getConnectionWithInode(inode int64) ([]connection, error) {
+	var c []connection
 	for i := range p.connections {
 		srcInode, err := getLocalInode(p.connections[i].GetSource())
 		if err != nil {
-			return nil
+			return nil, err
 		}
 		dstInode, err := getLocalInode(p.connections[i].GetDest())
 		if err != nil {
-			return nil
+			return nil, err
 		}
 
 		if srcInode == inode || dstInode == inode {
-			// TODO: return a list if multiple connections are matching
-			return p.connections[i]
+			c = append(c, p.connections[i])
 		}
 	}
-	return nil
+	return c, nil
 }
 
 // return the connection from p.connections

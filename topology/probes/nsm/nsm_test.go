@@ -23,6 +23,8 @@
 package nsm
 
 import (
+	"math/rand"
+	"strconv"
 	"testing"
 
 	"github.com/ligato/networkservicemesh/controlplane/pkg/apis/crossconnect"
@@ -132,6 +134,41 @@ func TestOnConnLocal_create_and_delete(t *testing.T) {
 	}
 }
 
+func CreateConnectionWithRemote(inodeSrc string, inodeDst string) (*cc.CrossConnect, *cc.CrossConnect) {
+	localSrc := createLocalSource()
+	localSrc.LocalSource.GetMechanism().Parameters[localconn.NetNsInodeKey] = inodeSrc
+
+	localDst := createLocalDest()
+	localDst.LocalDestination.GetMechanism().Parameters[localconn.NetNsInodeKey] = inodeDst
+
+	remote := &remoteconn.Connection{
+		Id:             strconv.Itoa(rand.Int()),
+		NetworkService: ns,
+		Context:        make(map[string]string),
+		Labels:         make(map[string]string),
+	}
+
+	remoteDst := &cc.CrossConnect_RemoteDestination{RemoteDestination: remote}
+
+	cconn1 := &cc.CrossConnect{
+		Id:          strconv.Itoa(rand.Int()),
+		Payload:     "CrossConnectPayload",
+		Source:      localSrc,
+		Destination: remoteDst,
+	}
+
+	remoteSrc := &cc.CrossConnect_RemoteSource{RemoteSource: remote}
+
+	cconn2 := &cc.CrossConnect{
+		Id:          strconv.Itoa(rand.Int()),
+		Payload:     "CrossConnectPayload",
+		Source:      remoteSrc,
+		Destination: localDst,
+	}
+
+	return cconn1, cconn2
+}
+
 func TestOnConnRemote_create_and_delete(t *testing.T) {
 	backend, err := graph.NewBackendByName("memory", nil)
 	if err != nil {
@@ -144,45 +181,11 @@ func TestOnConnRemote_create_and_delete(t *testing.T) {
 		t.Errorf("Can't create the NSM probe, error: %v", err)
 	}
 	p.Start()
-	localSrc := createLocalSource()
-	localSrc.LocalSource.GetMechanism().Parameters[localconn.NetNsInodeKey] = "1"
-
-	localDst := createLocalDest()
-	localDst.LocalDestination.GetMechanism().Parameters[localconn.NetNsInodeKey] = "2"
-
-	remote := &remoteconn.Connection{
-		Id:             "id_remote_conn",
-		NetworkService: ns,
-		Context:        make(map[string]string),
-		Labels:         make(map[string]string),
-	}
-	remoteDst := &cc.CrossConnect_RemoteDestination{RemoteDestination: remote}
-
-	cconn1 := &cc.CrossConnect{
-		Id:          "CrossConnectID",
-		Payload:     "CrossConnectPayload",
-		Source:      localSrc,
-		Destination: remoteDst,
-	}
-
+	cconn1, cconn2 := CreateConnectionWithRemote("1", "2")
 	p.onConnLocalRemote(crossconnect.CrossConnectEventType_INITIAL_STATE_TRANSFER, cconn1)
-
-	srcInode, dstInode := p.connections[0].GetInodes()
-	if srcInode != 1 || dstInode != 0 {
-		t.Error("probe doesn't have the correct link")
-	}
-
-	remoteSrc := &cc.CrossConnect_RemoteSource{RemoteSource: remote}
-
-	cconn2 := &cc.CrossConnect{
-		Id:          "CrossConnectID",
-		Payload:     "CrossConnectPayload",
-		Source:      remoteSrc,
-		Destination: localDst,
-	}
 	p.onConnRemoteLocal(crossconnect.CrossConnectEventType_INITIAL_STATE_TRANSFER, cconn2)
 
-	srcInode, dstInode = p.connections[0].GetInodes()
+	srcInode, dstInode := p.connections[0].GetInodes()
 	if srcInode != 1 || dstInode != 2 {
 		t.Errorf("Probe doesn't have the correct connection.\nNumber of conn : %d.\nConnections are: \n %+v", len(p.connections), p.connections)
 	}
@@ -219,6 +222,75 @@ func TestOnConnRemote_create_and_delete(t *testing.T) {
 	}
 }
 
+// This test creates two skydive connection
+// One connection has its localSource equal to the localDest of the other
+func TestOnConnTwoCrossConnectsWithTheSameSourceAndDest_create_and_delete(t *testing.T) {
+	backend, err := graph.NewBackendByName("memory", nil)
+	if err != nil {
+		t.Errorf("Can't create the skydive backend, error: %v", err)
+	}
+
+	g := graph.NewGraph("host_test", backend, common.AnalyzerService)
+	p, err := NewNsmProbe(g)
+	if err != nil {
+		t.Errorf("Can't create the NSM probe, error: %v", err)
+	}
+	p.Start()
+
+	cconn1, cconn2 := CreateConnectionWithRemote("1", "2")
+	p.onConnLocalRemote(crossconnect.CrossConnectEventType_INITIAL_STATE_TRANSFER, cconn1)
+	p.onConnRemoteLocal(crossconnect.CrossConnectEventType_INITIAL_STATE_TRANSFER, cconn2)
+	cconn3, cconn4 := CreateConnectionWithRemote("2", "3")
+	p.onConnLocalRemote(crossconnect.CrossConnectEventType_INITIAL_STATE_TRANSFER, cconn3)
+	p.onConnRemoteLocal(crossconnect.CrossConnectEventType_INITIAL_STATE_TRANSFER, cconn4)
+
+	//ensure that two connections are avalaible in the connection list when looking for inode 2
+	c, _ := p.getConnectionWithInode(2)
+	if len(c) != 2 {
+		t.Fatalf("Two connections should be available with inode 2, but only %d is retreived", len(c))
+	}
+
+	// Add nodes to the graph
+	m1 := graph.Metadata{
+		"Inode": 1,
+	}
+	n1 := p.g.NewNode(graph.GenID(), m1)
+	p.g.AddNode(n1)
+
+	m2 := graph.Metadata{
+		"Inode": 2,
+	}
+	n2 := p.g.NewNode(graph.GenID(), m2)
+	p.g.AddNode(n2)
+
+	m3 := graph.Metadata{
+		"Inode": 3,
+	}
+	n3 := p.g.NewNode(graph.GenID(), m3)
+	p.g.AddNode(n3)
+
+	// Ensure Edges are created
+	if !p.g.AreLinked(n1, n2, nil) {
+		t.Errorf("link between inode 1 and inode 2 is not created in the graph : %v", p.connections)
+	}
+	if !p.g.AreLinked(n2, n3, nil) {
+		t.Errorf("link between inode 2 and inode 3 is not created in the graph : %v", p.connections)
+	}
+
+	p.onConnLocalRemote(crossconnect.CrossConnectEventType_DELETE, cconn1)
+	p.onConnRemoteLocal(crossconnect.CrossConnectEventType_DELETE, cconn2)
+	p.onConnLocalRemote(crossconnect.CrossConnectEventType_DELETE, cconn3)
+	p.onConnRemoteLocal(crossconnect.CrossConnectEventType_DELETE, cconn4)
+	// Ensure Edge is deleted
+	if p.g.AreLinked(n1, n2, nil) || p.g.AreLinked(n2, n3, nil) {
+		t.Error("connections are not deleted in the graph")
+	}
+
+	if len(p.connections) != 0 {
+		t.Errorf("connection list is not empty after deletion, list length: %d", len(p.connections))
+	}
+}
+
 // TODO : Test addconn/delconn/addNode/delNode with different orders
 
-// TODO : Test Connections to metadatas transformations
+// TODO : Test connections to metadatas transformations
