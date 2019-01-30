@@ -55,7 +55,8 @@ EASYJSON_FILES_TAG=\
 	sflow/sflowmetric.go \
 	topology/metrics.go \
 	topology/probes/netlink/route.go \
-	topology/probes/netlink/neighbor.go
+	topology/probes/netlink/neighbor.go \
+	topology/probes/nsm/nsm.go
 EASYJSON_FILES_TAG_LINUX=\
 	topology/probes/netlink/netlink.go \
 	topology/probes/socketinfo/connection.go

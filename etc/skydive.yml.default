@@ -110,6 +110,7 @@ analyzer:
     probes:
       # - k8s
       # - istio
+      # - nsm
 
     k8s:
       # EXPERIMENTAL: k8s probe is still under development and should not be used
@@ -159,6 +160,10 @@ analyzer:
       - quotaspecbinding
       - serviceentry
       - virtualservice
+
+    nsm:
+     # list of nsm daemons to connect to in order to monitor nsm cross connections
+     - 127.0.0.1:5007
 
   replication:
     # debug: false
