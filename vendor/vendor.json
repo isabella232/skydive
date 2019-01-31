@@ -51,12 +51,6 @@
 			"revisionTime": "2017-08-10T14:37:23Z"
 		},
 		{
-			"checksumSHA1": "DWPL08pD/SQ2GzLfoR7ZXnjj7Sw=",
-			"path": "github.com/Sirupsen/logrus",
-			"revision": "4b6ea7319e214d98c938f12692336f7ca9348d6b",
-			"revisionTime": "2016-03-17T14:11:10Z"
-		},
-		{
 			"checksumSHA1": "QC55lHNOv1+UAL2xtIHw17MJ8J8=",
 			"path": "github.com/StackExchange/wmi",
 			"revision": "5d049714c4a64225c3c79a7cf7d02f7fb5b96338",
@@ -2108,12 +2102,6 @@
 			"path": "github.com/op/go-logging",
 			"revision": "970db520ece77730c7e4724c61121037378659d9",
 			"revisionTime": "2016-03-15T20:05:05Z"
-		},
-		{
-			"checksumSHA1": "FV1FxF/25G8cx+qzKUGwbdJusrw=",
-			"path": "github.com/opencontainers/runc/libcontainer/user",
-			"revision": "8fa5343b0058459296399a89bc532aa5508de28d",
-			"revisionTime": "2016-03-30T02:39:07Z"
 		},
 		{
 			"checksumSHA1": "aaGxJeYZxM1cbxVEac4vO4XeUys=",
