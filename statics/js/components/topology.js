@@ -188,11 +188,23 @@ var TopologyComponent = {
         </panel>\
         <panel id="edge-metadata" v-if="currentEdge"\
                title="Metadata">\
-          <object-detail :object="currentEdge.metadata"></object-detail>\
+          <object-detail :object="currentEdgeMetadata"></object-detail>\
         </panel>\
         <panel id="docker-metadata" v-if="currentNodeDocker"\
                title="Docker">\
           <object-detail :object="currentNodeDocker"></object-detail>\
+        </panel>\
+        <panel id="edge-src-metadata" v-if="currentEdgeSrc"\
+                title="Source">\
+          <object-detail :object="currentEdgeSrc"></object-detail>\
+        </panel>\
+        <panel id="edge-via-metadata" v-if="currentEdgeVia"\
+                title="Via">\
+          <object-detail :object="currentEdgeVia"></object-detail>\
+        </panel>\
+        <panel id="edge-dst-metadata" v-if="currentEdgeDst"\
+          title="Destination">\
+          <object-detail :object="currentEdgeDst"></object-detail>\
         </panel>\
         <panel id="k8s-metadata" v-if="currentNodeK8s"\
                title="K8s.Extra">\
@@ -418,6 +430,12 @@ var TopologyComponent = {
       return this.$store.state.currentEdge;
     },
 
+    currentEdgeMetadata: function() {
+      if (!this.currentEdge) return null;
+      return this.extractMetadata(this.currentEdge.metadata,
+        ['Directed', 'NSM.Source', 'NSM.Via', 'NSM.Destination']);
+    },
+
     currentNodeMetadata: function() {
       if (!this.currentNode) return null;
       return this.extractMetadata(this.currentNode.metadata,
@@ -435,11 +453,27 @@ var TopologyComponent = {
       return this.currentNode.metadata.Docker;
     },
 
+    currentEdgeSrc: function() {
+      if (!this.currentEdgeMetadata || !this.currentEdge.metadata.NSM || !this.currentEdge.metadata.NSM.Source) return null;
+      return this.currentEdge.metadata.NSM.Source;
+    },
+
+    currentEdgeVia: function() {
+      if (!this.currentEdgeMetadata || !this.currentEdge.metadata.NSM || !this.currentEdge.metadata.NSM.Via) return null;
+      return this.currentEdge.metadata.NSM.Via;
+    },
+
+
+    currentEdgeDst: function() {
+      if (!this.currentEdgeMetadata || !this.currentEdge.metadata.NSM || !this.currentEdge.metadata.NSM.Destination) return null;
+      return this.currentEdge.metadata.NSM.Destination;
+    },
+
     currentNodeK8s: function() {
       if (!this.currentNodeMetadata || !this.currentNode.metadata.K8s || !this.currentNode.metadata.K8s.Extra) return null;
       return this.currentNode.metadata.K8s.Extra;
     },
- 
+
     currentNodeFeatures: function() {
       if (!this.currentNodeMetadata || !this.currentNode.metadata.Features) return null;
       return this.currentNode.metadata.Features;
