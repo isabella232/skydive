@@ -1613,66 +1613,6 @@
 			"revisionTime": "2018-10-05T09:27:46Z"
 		},
 		{
-			"checksumSHA1": "RWOiFR4RH6nS2NLurfVY1owqeNk=",
-			"path": "github.com/ligato/networkservicemesh/controlplane/pkg/apis/crossconnect",
-			"revision": "da9efeaf394d4d314e0ab8289f2944f11ca05663",
-			"revisionTime": "2018-11-27T10:41:28Z"
-		},
-		{
-			"checksumSHA1": "LDKABGe8wN7vy4s9JItkaposJOU=",
-			"path": "github.com/ligato/networkservicemesh/controlplane/pkg/apis/local/connection",
-			"revision": "da9efeaf394d4d314e0ab8289f2944f11ca05663",
-			"revisionTime": "2018-11-27T10:41:28Z"
-		},
-		{
-			"checksumSHA1": "LR2j2UO2zKtGGtnfYgNQGBfYZaY=",
-			"path": "github.com/ligato/networkservicemesh/controlplane/pkg/apis/remote/connection",
-			"revision": "050b60ed8a6a8802a87284e1e926895219f08f1d",
-			"revisionTime": "2018-11-29T00:12:42Z"
-		},
-		{
-			"checksumSHA1": "lwbBVG2Hn0snT0MlW4O6SE+RJcM=",
-			"path": "github.com/ligato/networkservicemesh/k8s/pkg/apis/networkservice",
-			"revision": "050b60ed8a6a8802a87284e1e926895219f08f1d",
-			"revisionTime": "2018-11-29T00:12:42Z"
-		},
-		{
-			"checksumSHA1": "q6sVasRFwZEk70xzYZNuTBL532U=",
-			"path": "github.com/ligato/networkservicemesh/k8s/pkg/apis/networkservice/v1",
-			"revision": "050b60ed8a6a8802a87284e1e926895219f08f1d",
-			"revisionTime": "2018-11-29T00:12:42Z"
-		},
-		{
-			"checksumSHA1": "qAE5U7yqVMZWeyoQr6+3K2aEP0c=",
-			"path": "github.com/ligato/networkservicemesh/k8s/pkg/networkservice/clientset/versioned",
-			"revision": "050b60ed8a6a8802a87284e1e926895219f08f1d",
-			"revisionTime": "2018-11-29T00:12:42Z"
-		},
-		{
-			"checksumSHA1": "+D6EGeDNFMjPyYvLnK3ynu9PnAw=",
-			"path": "github.com/ligato/networkservicemesh/k8s/pkg/networkservice/clientset/versioned/scheme",
-			"revision": "050b60ed8a6a8802a87284e1e926895219f08f1d",
-			"revisionTime": "2018-11-29T00:12:42Z"
-		},
-		{
-			"checksumSHA1": "reyAdP3ZNP8GMADjk/MKPOxcGco=",
-			"path": "github.com/ligato/networkservicemesh/k8s/pkg/networkservice/clientset/versioned/typed/networkservice/v1",
-			"revision": "050b60ed8a6a8802a87284e1e926895219f08f1d",
-			"revisionTime": "2018-11-29T00:12:42Z"
-		},
-		{
-			"checksumSHA1": "uCvx2ZEdei9yKU6332yG/fVpB1I=",
-			"path": "github.com/ligato/networkservicemesh/pkg/tools",
-			"revision": "da9efeaf394d4d314e0ab8289f2944f11ca05663",
-			"revisionTime": "2018-11-27T10:41:28Z"
-		},
-		{
-			"checksumSHA1": "hBnwdaTusHIBRgtIuhKWP8vBYb0=",
-			"path": "github.com/ligato/networkservicemesh/utils/fs",
-			"revision": "050b60ed8a6a8802a87284e1e926895219f08f1d",
-			"revisionTime": "2018-11-29T00:12:42Z"
-		},
-		{
 			"checksumSHA1": "E6lbuGqlBGB0dnklAzqfNZ8wd6s=",
 			"path": "github.com/lxc/lxd/client",
 			"revision": "9907f3a64b6b8ec9144e8be02d633b951439c0f6",
@@ -1842,6 +1782,66 @@
 			"path": "github.com/mohae/deepcopy",
 			"revision": "c48cc78d482608239f6c4c92a4abd87eb8761c90",
 			"revisionTime": "2017-09-29T03:49:55Z"
+		},
+		{
+			"checksumSHA1": "Lk2L47zdfF5Gl1GhPFE92+Lc9IE=",
+			"path": "github.com/networkservicemesh/networkservicemesh/controlplane/pkg/apis/crossconnect",
+			"revision": "4e7eb7f742843cb92a7b8dbd699268198f635b0c",
+			"revisionTime": "2019-02-22T10:03:47Z"
+		},
+		{
+			"checksumSHA1": "t7w2yxIh6cFCxlAFy8SpScpvumA=",
+			"path": "github.com/networkservicemesh/networkservicemesh/controlplane/pkg/apis/local/connection",
+			"revision": "4e7eb7f742843cb92a7b8dbd699268198f635b0c",
+			"revisionTime": "2019-02-22T10:03:47Z"
+		},
+		{
+			"checksumSHA1": "xYa6BBU402EqZjDSHcFUgFM6VUY=",
+			"path": "github.com/networkservicemesh/networkservicemesh/controlplane/pkg/apis/remote/connection",
+			"revision": "4e7eb7f742843cb92a7b8dbd699268198f635b0c",
+			"revisionTime": "2019-02-22T10:03:47Z"
+		},
+		{
+			"checksumSHA1": "d2+Sqxbpg8BaxXrGHXefnHYTwqw=",
+			"path": "github.com/networkservicemesh/networkservicemesh/k8s/pkg/apis/networkservice",
+			"revision": "4e7eb7f742843cb92a7b8dbd699268198f635b0c",
+			"revisionTime": "2019-02-22T10:03:47Z"
+		},
+		{
+			"checksumSHA1": "uOM6ymtx8CZH3/lTW7JC+thHqRU=",
+			"path": "github.com/networkservicemesh/networkservicemesh/k8s/pkg/apis/networkservice/v1",
+			"revision": "4e7eb7f742843cb92a7b8dbd699268198f635b0c",
+			"revisionTime": "2019-02-22T10:03:47Z"
+		},
+		{
+			"checksumSHA1": "Yn3q+XgtUXZLtzNClFvXa8jZdgs=",
+			"path": "github.com/networkservicemesh/networkservicemesh/k8s/pkg/networkservice/clientset/versioned",
+			"revision": "4e7eb7f742843cb92a7b8dbd699268198f635b0c",
+			"revisionTime": "2019-02-22T10:03:47Z"
+		},
+		{
+			"checksumSHA1": "0/tyk3lsSQRqn6yKGvzMzdoA2S4=",
+			"path": "github.com/networkservicemesh/networkservicemesh/k8s/pkg/networkservice/clientset/versioned/scheme",
+			"revision": "4e7eb7f742843cb92a7b8dbd699268198f635b0c",
+			"revisionTime": "2019-02-22T10:03:47Z"
+		},
+		{
+			"checksumSHA1": "7L8bC1hQPaDv3qgkU4ducGVOyRs=",
+			"path": "github.com/networkservicemesh/networkservicemesh/k8s/pkg/networkservice/clientset/versioned/typed/networkservice/v1",
+			"revision": "4e7eb7f742843cb92a7b8dbd699268198f635b0c",
+			"revisionTime": "2019-02-22T10:03:47Z"
+		},
+		{
+			"checksumSHA1": "1DXU/ZEPCA5FHxdf4B+xRJgz1iY=",
+			"path": "github.com/networkservicemesh/networkservicemesh/pkg/tools",
+			"revision": "4e7eb7f742843cb92a7b8dbd699268198f635b0c",
+			"revisionTime": "2019-02-22T10:03:47Z"
+		},
+		{
+			"checksumSHA1": "5CJ8hVD5aOiD/2dgIpGhWW7ERko=",
+			"path": "github.com/networkservicemesh/networkservicemesh/utils/fs",
+			"revision": "4e7eb7f742843cb92a7b8dbd699268198f635b0c",
+			"revisionTime": "2019-02-22T10:03:47Z"
 		},
 		{
 			"checksumSHA1": "NY/yQ26e4WcmK6+IxMR6TWK0X2U=",

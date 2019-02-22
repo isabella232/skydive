@@ -31,9 +31,9 @@ import (
 
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/empty"
-	cc "github.com/ligato/networkservicemesh/controlplane/pkg/apis/crossconnect"
-	localconn "github.com/ligato/networkservicemesh/controlplane/pkg/apis/local/connection"
-	"github.com/ligato/networkservicemesh/k8s/pkg/networkservice/clientset/versioned"
+	cc "github.com/networkservicemesh/networkservicemesh/controlplane/pkg/apis/crossconnect"
+	localconn "github.com/networkservicemesh/networkservicemesh/controlplane/pkg/apis/local/connection"
+	"github.com/networkservicemesh/networkservicemesh/k8s/pkg/networkservice/clientset/versioned"
 	"github.com/skydive-project/skydive/common"
 	"github.com/skydive-project/skydive/logging"
 	"github.com/skydive-project/skydive/topology/graph"
@@ -390,7 +390,7 @@ func dial(ctx context.Context, network string, address string) (*grpc.ClientConn
 }
 
 //TODO: consider moving this function to
-// https://github.com/ligato/networkservicemesh/blob/master/controlplane/pkg/apis/local/connection/mechanism_helpers.go
+// https://github.com/networkservicemesh/networkservicemesh/blob/master/controlplane/pkg/apis/local/connection/mechanism_helpers.go
 func getLocalInode(conn *localconn.Connection) (int64, error) {
 	inodeStr := conn.Mechanism.Parameters[localconn.NetNsInodeKey]
 	inode, err := strconv.ParseInt(inodeStr, 10, 64)

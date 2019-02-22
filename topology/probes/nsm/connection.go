@@ -25,8 +25,8 @@ package nsm
 import (
 	"fmt"
 
-	localconn "github.com/ligato/networkservicemesh/controlplane/pkg/apis/local/connection"
-	remoteconn "github.com/ligato/networkservicemesh/controlplane/pkg/apis/remote/connection"
+	localconn "github.com/networkservicemesh/networkservicemesh/controlplane/pkg/apis/local/connection"
+	remoteconn "github.com/networkservicemesh/networkservicemesh/controlplane/pkg/apis/remote/connection"
 	"github.com/skydive-project/skydive/filters"
 	"github.com/skydive-project/skydive/logging"
 	"github.com/skydive-project/skydive/topology/graph"
@@ -212,7 +212,7 @@ func (l *localConnectionPair) createMetadatas() graph.Metadata {
 					},
 				},
 				Destination: localConnectionMetadata{
-					IP: l.GetDest().GetContext()["dst_ip"],
+					IP: l.GetDest().GetContext().GetDstIpAddr(),
 					baseConnectionMetadata: baseConnectionMetadata{
 						MechanismType:       l.GetDest().GetMechanism().GetType().String(),
 						MechanismParameters: l.GetDest().GetMechanism().GetParameters(),
@@ -264,7 +264,7 @@ func (r *remoteConnectionPair) createMetadatas() graph.Metadata {
 				NetworkService: r.GetSource().GetNetworkService(),
 				Payload:        r.payload,
 				Source: localConnectionMetadata{
-					IP: r.GetSource().GetContext()["src_ip"],
+					IP: r.GetSource().GetContext().GetSrcIpAddr(),
 					baseConnectionMetadata: baseConnectionMetadata{
 						MechanismType:       r.GetSource().GetMechanism().GetType().String(),
 						MechanismParameters: r.GetSource().GetMechanism().GetParameters(),
@@ -272,7 +272,7 @@ func (r *remoteConnectionPair) createMetadatas() graph.Metadata {
 					},
 				},
 				Destination: localConnectionMetadata{
-					IP: r.GetDest().GetContext()["dst_ip"],
+					IP: r.GetDest().GetContext().GetDstIpAddr(),
 					baseConnectionMetadata: baseConnectionMetadata{
 						MechanismType:       r.GetDest().GetMechanism().GetType().String(),
 						MechanismParameters: r.GetDest().GetMechanism().GetParameters(),
