@@ -13,7 +13,7 @@ RUN apt-get -y update \
     && add-apt-repository -y ppa:ubuntu-toolchain-r/ppa \
     && apt-get -y update \
     && apt-get -y install git make flex bison wget unzip golang libpcap0.8-dev npm \
-         clang llvm zlib1g-dev liblzma-dev libc++-dev libc-dev linux-libc-dev libxml2-dev libvirt-dev \
+         clang llvm zlib1g-dev liblzma-dev libc++-dev libc-dev linux-libc-dev libxml2-dev libvirt-dev curl \
     && rm -rf /var/lib/apt/lists/*
 
 # EBPF requires llvm-6.0 clang-6.0 however the cross compulation docker image can't install them
@@ -31,6 +31,9 @@ RUN arch="$(dpkg --print-architecture)" \
     && wget --no-verbose -O /gosu "https://github.com/tianon/gosu/releases/download/1.10/gosu-${arch##*-}" \
     && chmod a+x /gosu
 
+RUN curl -s https://packagecloud.io/install/repositories/fdio/1901/script.deb.sh | bash
+RUN apt-get -y install vpp vpp-dev
+
 ENV UID=$UID
 
 RUN chown -R $UID /root/
@@ -44,4 +47,4 @@ CMD chown -R $UID /root/go/.cache/govendor \
     PATH=/root/go/bin:$PATH \
     CGO_ENABLED=1 \
     GOOS=linux \
-    make install WITH_OPENCONTRAIL=true WITH_EBPF=true
+    make install WITH_OPENCONTRAIL=true WITH_EBPF=true WITH_VPP=true
