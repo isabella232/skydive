@@ -32,7 +32,7 @@ RUN arch="$(dpkg --print-architecture)" \
     && chmod a+x /gosu
 
 RUN curl -s https://packagecloud.io/install/repositories/fdio/1901/script.deb.sh | bash
-RUN apt-get -y install vpp vpp-dev
+RUN apt-get -y install vpp-lib=19.01-16~gd30202244~b42 vpp=19.01-16~gd30202244~b42 vpp-dev=19.01-16~gd30202244~b42
 
 ENV UID=$UID
 

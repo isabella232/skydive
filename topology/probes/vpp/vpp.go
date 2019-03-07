@@ -372,6 +372,7 @@ func NewProbe(g *graph.Graph, shm string, root *graph.Node) *Probe {
 	l := logrus.New()
 	l.Out = ioutil.Discard
 	l.Hooks.Add(probe)
+	core.SetLogLevel(logrus.DebugLevel)
 	core.SetLogger(l)
 
 	return probe
